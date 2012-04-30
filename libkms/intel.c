@@ -53,7 +53,7 @@ intel_get_prop(struct kms_driver *kms, unsigned key, unsigned *out)
 {
 	switch (key) {
 	case KMS_BO_TYPE:
-		*out = KMS_BO_TYPE_SCANOUT_X8R8G8B8 | KMS_BO_TYPE_CURSOR_64X64_A8R8G8B8;
+		*out = KMS_BO_TYPE_SCANOUT_X8R8G8B8 | KMS_BO_TYPE_CURSOR_64X64_A8R8G8B8 | KMS_BO_TYPE_SCANOUT_YUYV;
 		break;
 	default:
 		return -EINVAL;
@@ -101,6 +101,10 @@ intel_bo_create(struct kms_driver *kms,
 		pitch = width * 4;
 		pitch = (pitch + 512 - 1) & ~(512 - 1);
 		size = pitch * ((height + 4 - 1) & ~(4 - 1));
+	} else if (type == KMS_BO_TYPE_SCANOUT_YUYV) {
+		pitch = width * 2;
+		pitch = (pitch + 64 - 1) & ~(64 - 1);
+		size = pitch * height;
 	} else {
 		free(bo);
 		return -EINVAL;
