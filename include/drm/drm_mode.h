@@ -502,4 +502,17 @@ struct drm_mode_destroy_dumb {
 	__u32 handle;
 };
 
+#define DRM_MODE_ATOMIC_TEST_ONLY (1<<0)
+
+/* FIXME come up with some sane error reporting mechanism? */
+struct drm_mode_atomic {
+	__u32 flags;
+	__u32 count_objs;
+	__u64 objs_ptr;
+	__u64 count_props_ptr;
+	__u64 props_ptr;
+	__u64 prop_values_ptr;
+	__u64 blob_values_ptr;
+};
+
 #endif
