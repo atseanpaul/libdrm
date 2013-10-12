@@ -238,6 +238,18 @@ struct drm_mode_get_connector {
 #define DRM_MODE_PROP_ENUM	(1<<3) /* enumerated type with text strings */
 #define DRM_MODE_PROP_BLOB	(1<<4)
 #define DRM_MODE_PROP_BITMASK	(1<<5) /* bitmask of enumerated types */
+#define DRM_MODE_PROP_OBJECT	(1<<6) /* drm mode object */
+/* Properties that are not dynamic cannot safely be changed without a
+ * atomic-modeset / atomic-pageflip test step.  But if userspace is
+ * only changing dynamic properties, it is guaranteed that the change
+ * will not exceed hw limits, so no test step is required.
+ *
+ * Note that fb_id properties are a bit ambiguous.. they of course can
+ * be changed dynamically, assuming the pixel format does not change.
+ */
+#define DRM_MODE_PROP_DYNAMIC	(1<<24)
+/* Indicates that numeric property values are signed rather than unsigned: */
+#define DRM_MODE_PROP_SIGNED   (1<<25)
 
 /* non-extended types: legacy bitmask, one bit per type: */
 #define DRM_MODE_PROP_LEGACY_TYPE  ( \

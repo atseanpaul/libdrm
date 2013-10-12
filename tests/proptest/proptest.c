@@ -127,6 +127,8 @@ dump_prop(uint32_t prop_id, uint64_t value)
 	printf("\t\tflags:");
 	if (prop->flags & DRM_MODE_PROP_PENDING)
 		printf(" pending");
+	if (prop->flags & DRM_MODE_PROP_SIGNED)
+		printf(" signed");
 	if (prop->flags & DRM_MODE_PROP_IMMUTABLE)
 		printf(" immutable");
 	if (drm_property_type_is(prop, DRM_MODE_PROP_SIGNED_RANGE))
@@ -153,8 +155,13 @@ dump_prop(uint32_t prop_id, uint64_t value)
 
 	if (drm_property_type_is(prop, DRM_MODE_PROP_RANGE)) {
 		printf("\t\tvalues:");
-		for (i = 0; i < prop->count_values; i++)
-			printf(" %"PRIu64, prop->values[i]);
+		if (prop->flags & DRM_MODE_PROP_SIGNED) {
+			for (i = 0; i < prop->count_values; i++)
+				printf(" %"PRId64, U642I64(prop->values[i]));
+		} else {
+			for (i = 0; i < prop->count_values; i++)
+				printf(" %"PRIu64, prop->values[i]);
+		}
 		printf("\n");
 	}
 
