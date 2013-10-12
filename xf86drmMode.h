@@ -486,7 +486,8 @@ extern int drmModePropertySetAddBlob(drmModePropertySetPtr set,
 				     uint64_t length,
 				     void *blob);
 
-extern int drmModePropertySetCommit(int fd, uint32_t flags, drmModePropertySetPtr set);
+extern int drmModePropertySetCommit(int fd, uint32_t flags,
+				    void *user_data, drmModePropertySetPtr set);
 
 extern void drmModePropertySetFree(drmModePropertySetPtr set);
 

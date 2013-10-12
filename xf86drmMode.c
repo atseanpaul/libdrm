@@ -1305,7 +1305,8 @@ void drmModePropertySetFree(drmModePropertySetPtr set)
 	drmFree(set);
 }
 
-int drmModePropertySetCommit(int fd, uint32_t flags, drmModePropertySetPtr set)
+int drmModePropertySetCommit(int fd, uint32_t flags, void *user_data,
+			     drmModePropertySetPtr set)
 {
 	drmModePropertySetItemPtr item;
 	uint32_t *objs_ptr = NULL;

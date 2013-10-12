@@ -503,6 +503,8 @@ struct drm_mode_destroy_dumb {
 };
 
 #define DRM_MODE_ATOMIC_TEST_ONLY (1<<0)
+#define DRM_MODE_ATOMIC_EVENT (1<<1)
+#define DRM_MODE_ATOMIC_NONBLOCK (1<<2)
 
 /* FIXME come up with some sane error reporting mechanism? */
 struct drm_mode_atomic {
@@ -513,6 +515,7 @@ struct drm_mode_atomic {
 	__u64 props_ptr;
 	__u64 prop_values_ptr;
 	__u64 blob_values_ptr;
+	__u64 user_data;
 };
 
 #endif
