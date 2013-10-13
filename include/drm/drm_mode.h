@@ -514,9 +514,15 @@ struct drm_mode_destroy_dumb {
 	__u32 handle;
 };
 
-#define DRM_MODE_ATOMIC_TEST_ONLY (1<<0)
-#define DRM_MODE_ATOMIC_EVENT (1<<1)
-#define DRM_MODE_ATOMIC_NONBLOCK (1<<2)
+/* page-flip flags are valid, plus: */
+#define DRM_MODE_ATOMIC_TEST_ONLY 0x0100
+#define DRM_MODE_ATOMIC_NONBLOCK  0x0200
+
+#define DRM_MODE_ATOMIC_FLAGS (\
+		DRM_MODE_PAGE_FLIP_EVENT |\
+		DRM_MODE_PAGE_FLIP_ASYNC |\
+		DRM_MODE_ATOMIC_TEST_ONLY |\
+		DRM_MODE_ATOMIC_NONBLOCK)
 
 /* FIXME come up with some sane error reporting mechanism? */
 struct drm_mode_atomic {
